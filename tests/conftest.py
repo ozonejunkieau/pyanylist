@@ -1,15 +1,29 @@
 """Pytest configuration and fixtures for pyanylist tests."""
 
 import os
+import subprocess
+import sys
 
 import pytest
 
 
 def pytest_configure(config):
-    """Configure pytest with custom markers."""
+    """Configure pytest with custom markers and ensure fresh build."""
     config.addinivalue_line(
         "markers", "integration: marks tests as integration tests requiring credentials"
     )
+
+    # Ensure native module is built from current source before running tests.
+    # This prevents stale cached binaries from masking source code issues.
+    # Set SKIP_MATURIN_BUILD=1 to skip this (e.g., in CI after explicit build step).
+    if not os.environ.get("SKIP_MATURIN_BUILD"):
+        result = subprocess.run(
+            [sys.executable, "-m", "maturin", "develop"],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            raise RuntimeError(f"Failed to build native module:\n{result.stderr}\n{result.stdout}")
 
 
 @pytest.fixture
