@@ -34,9 +34,6 @@ jobs:
           # macOS aarch64 (Apple Silicon)
           - os: macos-latest
             target: aarch64-apple-darwin
-          # Windows x86_64
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
 
     steps:
       - uses: actions/checkout@v4
@@ -58,10 +55,6 @@ jobs:
       - name: Install protoc (macOS)
         if: matrix.os == 'macos-latest'
         run: brew install protobuf
-
-      - name: Install protoc (Windows)
-        if: matrix.os == 'windows-latest'
-        run: choco install protoc
 
       - name: Install maturin
         run: pip install maturin

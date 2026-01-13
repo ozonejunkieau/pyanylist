@@ -259,7 +259,6 @@ except RuntimeError as e:
 - protoc (Protocol Buffers compiler)
   - Ubuntu/Debian: `sudo apt-get install protobuf-compiler`
   - macOS: `brew install protobuf`
-  - Windows: `choco install protoc`
 
 ### Setup
 
