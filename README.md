@@ -256,6 +256,10 @@ except RuntimeError as e:
 - Python 3.12+
 - Rust 1.70+
 - [uv](https://docs.astral.sh/uv/)
+- protoc (Protocol Buffers compiler)
+  - Ubuntu/Debian: `sudo apt-get install protobuf-compiler`
+  - macOS: `brew install protobuf`
+  - Windows: `choco install protoc`
 
 ### Setup
 
