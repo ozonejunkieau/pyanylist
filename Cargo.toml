@@ -1,0 +1,18 @@
+[package]
+name = "pyanylist"
+version = "0.0.1"
+edition = "2021"
+description = "Python bindings for anylist_rs"
+license = "MIT"
+
+[lib]
+name = "pyanylist"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }
+tokio = { version = "1", features = ["full"] }
+anylist_rs = { git = "https://github.com/ozonejunkieau/anylist_rs" }
+
+[build-dependencies]
+pyo3-build-config = "0.22"

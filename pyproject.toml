@@ -1,0 +1,86 @@
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "pyanylist"
+version = "0.0.1"
+description = "Python bindings for AnyList API via anylist_rs"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.12"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Rust",
+]
+keywords = ["anylist", "shopping", "groceries", "api", "rust"]
+
+[project.optional-dependencies]
+dev = [
+    "maturin>=1.0",
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.8.0",
+    "pyright>=1.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ozonejunkieau/pyanylist"
+Repository = "https://github.com/ozonejunkieau/pyanylist"
+Issues = "https://github.com/ozonejunkieau/pyanylist/issues"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: marks tests as integration tests requiring credentials (deselect with '-m \"not integration\"')",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM", "PTH"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+reportMissingImports = false
+reportMissingTypeStubs = false
+reportAttributeAccessIssue = false
+reportOptionalMemberAccess = false
+
+[tool.coverage.run]
+source = ["tests"]
+omit = ["tests/test_integration.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "maturin>=1.0",
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.8.0",
+    "pyright>=1.1.0",
+]
