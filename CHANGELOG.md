@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.1] - 2025-01-14
+## [0.0.2] - 2025-01-14
 
 ### Added
 
-- Initial release of pyanylist
+- Initial public release of pyanylist
 - `AnyListClient` for authenticating with email/password or saved tokens
 - Shopping list operations: create, read, update, delete lists
 - List item operations: add, check off, uncheck, delete items
@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Real-time sync via WebSocket with `RealtimeSync` and `SyncEvent`
 - Token persistence with `SavedTokens` for session restoration
 - Support for Python 3.12 and 3.13
-- Platform support: Linux (x86_64, aarch64), macOS (x86_64, aarch64)
+- Platform support: Linux x86_64 (glibc and musl), Linux aarch64 (musl), macOS (x86_64 and aarch64)
 
-[Unreleased]: https://github.com/ozonejunkieau/pyanylist/compare/v0.0.1...HEAD
-[0.0.1]: https://github.com/ozonejunkieau/pyanylist/releases/tag/v0.0.1
+[Unreleased]: https://github.com/ozonejunkieau/pyanylist/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/ozonejunkieau/pyanylist/releases/tag/v0.0.2

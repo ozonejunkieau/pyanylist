@@ -302,6 +302,10 @@ uv run ruff format tests/
 uv run pyright tests/
 ```
 
+## Acknowledgements
+
+This library is built on top of [anylist_rs](https://github.com/phildenhoff/anylist_rs) by Phil Denhoff, which provides the core Rust implementation for interacting with the AnyList API.
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
