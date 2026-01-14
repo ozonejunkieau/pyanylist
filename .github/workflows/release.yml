@@ -25,9 +25,6 @@ jobs:
           # Linux x86_64
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-          # Linux aarch64
-          - os: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
           # macOS x86_64
           - os: macos-latest
             target: x86_64-apple-darwin
@@ -68,11 +65,11 @@ jobs:
           manylinux: auto
           before-script-linux: |
             if command -v dnf &> /dev/null; then
-              dnf install -y openssl-devel perl-IPC-Cmd
+              dnf install -y openssl-devel perl-IPC-Cmd protobuf-compiler
             elif command -v yum &> /dev/null; then
-              yum install -y openssl-devel perl-IPC-Cmd
+              yum install -y openssl-devel perl-IPC-Cmd protobuf-compiler
             elif command -v apk &> /dev/null; then
-              apk add --no-cache openssl-dev perl
+              apk add --no-cache openssl-dev perl protobuf-dev
             fi
 
       - name: Upload wheels
