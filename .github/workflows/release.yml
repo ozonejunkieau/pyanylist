@@ -26,10 +26,6 @@ jobs:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             manylinux: auto
-          # Linux aarch64 (glibc)
-          - os: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-            manylinux: auto
           # Linux x86_64 (musl/Alpine)
           - os: ubuntu-latest
             target: x86_64-unknown-linux-musl
@@ -79,12 +75,12 @@ jobs:
           sccache: 'true'
           manylinux: ${{ matrix.manylinux }}
           before-script-linux: |
-            if command -v dnf &> /dev/null; then
+            if command -v apk &> /dev/null; then
+              apk add --no-cache protoc protobuf-dev
+            elif command -v dnf &> /dev/null; then
               dnf install -y protobuf-compiler
             elif command -v yum &> /dev/null; then
               yum install -y protobuf-compiler
-            elif command -v apk &> /dev/null; then
-              apk add --no-cache protobuf-dev
             fi
 
       - name: Upload wheels
