@@ -352,7 +352,12 @@ impl From<anylist_rs::Recipe> for Recipe {
         Self {
             id: r.id().to_string(),
             name: r.name().to_string(),
-            ingredients: r.ingredients().iter().cloned().map(Ingredient::from).collect(),
+            ingredients: r
+                .ingredients()
+                .iter()
+                .cloned()
+                .map(Ingredient::from)
+                .collect(),
             preparation_steps: r.preparation_steps().to_vec(),
             note: r.note().map(|s| s.to_string()),
             source_name: r.source_name().map(|s| s.to_string()),
