@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "pyanylist"
-version = "0.0.2"
+version = "0.0.3"
 description = "Python bindings for AnyList API via anylist_rs"
 readme = "README.md"
 license = {text = "MIT"}

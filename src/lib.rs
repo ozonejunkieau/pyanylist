@@ -54,9 +54,9 @@ impl SavedTokens {
 impl From<anylist_rs::SavedTokens> for SavedTokens {
     fn from(t: anylist_rs::SavedTokens) -> Self {
         Self {
-            access_token: t.access_token,
-            refresh_token: t.refresh_token,
-            user_id: t.user_id,
+            access_token: t.access_token.clone(),
+            refresh_token: t.refresh_token.clone(),
+            user_id: t.user_id.clone(),
             is_premium_user: t.is_premium_user,
         }
     }
@@ -64,7 +64,7 @@ impl From<anylist_rs::SavedTokens> for SavedTokens {
 
 impl From<SavedTokens> for anylist_rs::SavedTokens {
     fn from(t: SavedTokens) -> Self {
-        Self {
+        anylist_rs::SavedTokens {
             access_token: t.access_token,
             refresh_token: t.refresh_token,
             user_id: t.user_id,
@@ -109,15 +109,15 @@ impl ListItem {
 impl From<anylist_rs::ListItem> for ListItem {
     fn from(item: anylist_rs::ListItem) -> Self {
         Self {
-            id: item.id,
-            list_id: item.list_id,
-            name: item.name,
-            details: item.details,
-            is_checked: item.is_checked,
-            quantity: item.quantity,
-            category: item.category,
-            user_id: item.user_id,
-            product_upc: item.product_upc,
+            id: item.id().to_string(),
+            list_id: item.list_id().to_string(),
+            name: item.name().to_string(),
+            details: item.details().to_string(),
+            is_checked: item.is_checked(),
+            quantity: item.quantity().map(|s| s.to_string()),
+            category: item.category().map(|s| s.to_string()),
+            user_id: item.user_id().map(|s| s.to_string()),
+            product_upc: item.product_upc().map(|s| s.to_string()),
         }
     }
 }
@@ -148,9 +148,9 @@ impl ShoppingList {
 impl From<anylist_rs::List> for ShoppingList {
     fn from(list: anylist_rs::List) -> Self {
         Self {
-            id: list.id,
-            name: list.name,
-            items: list.items.into_iter().map(ListItem::from).collect(),
+            id: list.id().to_string(),
+            name: list.name().to_string(),
+            items: list.items().iter().cloned().map(ListItem::from).collect(),
         }
     }
 }
@@ -183,12 +183,12 @@ impl FavouriteItem {
 impl From<anylist_rs::FavouriteItem> for FavouriteItem {
     fn from(item: anylist_rs::FavouriteItem) -> Self {
         Self {
-            id: item.id,
-            list_id: item.list_id,
-            name: item.name,
-            quantity: item.quantity,
-            details: item.details,
-            category: item.category,
+            id: item.id.clone(),
+            list_id: item.list_id.clone(),
+            name: item.name.clone(),
+            quantity: item.quantity.clone(),
+            details: item.details.clone(),
+            category: item.category.clone(),
         }
     }
 }
@@ -225,10 +225,10 @@ impl FavouritesList {
 impl From<anylist_rs::FavouritesList> for FavouritesList {
     fn from(list: anylist_rs::FavouritesList) -> Self {
         Self {
-            id: list.id,
-            name: list.name,
+            id: list.id.clone(),
+            name: list.name.clone(),
             items: list.items.into_iter().map(FavouriteItem::from).collect(),
-            shopping_list_id: list.shopping_list_id,
+            shopping_list_id: list.shopping_list_id.clone(),
         }
     }
 }
@@ -281,22 +281,27 @@ impl Ingredient {
 impl From<anylist_rs::Ingredient> for Ingredient {
     fn from(i: anylist_rs::Ingredient) -> Self {
         Self {
-            name: i.name,
-            quantity: i.quantity,
-            note: i.note,
-            raw_ingredient: i.raw_ingredient,
+            name: i.name().to_string(),
+            quantity: i.quantity().map(|s| s.to_string()),
+            note: i.note().map(|s| s.to_string()),
+            raw_ingredient: i.raw_ingredient().map(|s| s.to_string()),
         }
     }
 }
 
 impl From<Ingredient> for anylist_rs::Ingredient {
     fn from(i: Ingredient) -> Self {
-        Self {
-            name: i.name,
-            quantity: i.quantity,
-            note: i.note,
-            raw_ingredient: i.raw_ingredient,
+        let mut ingredient = anylist_rs::Ingredient::new(i.name);
+        if let Some(qty) = i.quantity {
+            ingredient = ingredient.with_quantity(qty);
         }
+        if let Some(note) = i.note {
+            ingredient = ingredient.with_note(note);
+        }
+        if let Some(raw) = i.raw_ingredient {
+            ingredient = ingredient.with_raw_ingredient(raw);
+        }
+        ingredient
     }
 }
 
@@ -345,18 +350,18 @@ impl Recipe {
 impl From<anylist_rs::Recipe> for Recipe {
     fn from(r: anylist_rs::Recipe) -> Self {
         Self {
-            id: r.id,
-            name: r.name,
-            ingredients: r.ingredients.into_iter().map(Ingredient::from).collect(),
-            preparation_steps: r.preparation_steps,
-            note: r.note,
-            source_name: r.source_name,
-            source_url: r.source_url,
-            servings: r.servings,
-            prep_time: r.prep_time,
-            cook_time: r.cook_time,
-            rating: r.rating,
-            photo_urls: r.photo_urls,
+            id: r.id().to_string(),
+            name: r.name().to_string(),
+            ingredients: r.ingredients().iter().cloned().map(Ingredient::from).collect(),
+            preparation_steps: r.preparation_steps().to_vec(),
+            note: r.note().map(|s| s.to_string()),
+            source_name: r.source_name().map(|s| s.to_string()),
+            source_url: r.source_url().map(|s| s.to_string()),
+            servings: r.servings().map(|s| s.to_string()),
+            prep_time: r.prep_time(),
+            cook_time: r.cook_time(),
+            rating: r.rating(),
+            photo_urls: r.photo_urls().to_vec(),
         }
     }
 }
@@ -395,8 +400,8 @@ impl From<anylist_rs::ICalendarInfo> for ICalendarInfo {
     fn from(info: anylist_rs::ICalendarInfo) -> Self {
         Self {
             enabled: info.enabled,
-            url: info.url,
-            token: info.token,
+            url: info.url.clone(),
+            token: info.token.clone(),
         }
     }
 }
