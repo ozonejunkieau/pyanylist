@@ -12,7 +12,7 @@ crate-type = ["cdylib"]
 [dependencies]
 pyo3 = { version = "0.22", features = ["extension-module"] }
 tokio = { version = "1", features = ["full"] }
-anylist_rs = { git = "https://github.com/ozonejunkieau/anylist_rs" }
+anylist_rs = { git = "https://github.com/ozonejunkieau/anylist_rs", default-features = false, features = ["rustls-tls"] }
 
 [build-dependencies]
 pyo3-build-config = "0.22"
