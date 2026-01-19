@@ -64,7 +64,12 @@ impl From<anylist_rs::SavedTokens> for SavedTokens {
 
 impl From<SavedTokens> for anylist_rs::SavedTokens {
     fn from(t: SavedTokens) -> Self {
-        anylist_rs::SavedTokens::new(t.access_token, t.refresh_token, t.user_id, t.is_premium_user)
+        anylist_rs::SavedTokens::new(
+            t.access_token,
+            t.refresh_token,
+            t.user_id,
+            t.is_premium_user,
+        )
     }
 }
 
@@ -222,7 +227,12 @@ impl From<anylist_rs::FavouritesList> for FavouritesList {
         Self {
             id: list.id().to_string(),
             name: list.name().to_string(),
-            items: list.items().iter().cloned().map(FavouriteItem::from).collect(),
+            items: list
+                .items()
+                .iter()
+                .cloned()
+                .map(FavouriteItem::from)
+                .collect(),
             shopping_list_id: list.shopping_list_id().map(|s| s.to_string()),
         }
     }
