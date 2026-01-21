@@ -101,8 +101,8 @@ jobs:
       - name: Build package
         run: uv run maturin develop
 
-      - name: Run pyright
-        run: uv run pyright tests/
+      - name: Run basedpyright
+        run: uv run basedpyright tests/
 
   rust-check:
     name: Rust Check

@@ -52,6 +52,8 @@ def test_ingredient_types() -> None:
 
     assert isinstance(name, str)
     assert qty is None
+    assert note is None
+    assert raw is None
 
     # Full construction
     ing2 = Ingredient(
