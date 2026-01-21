@@ -181,6 +181,7 @@ class TestListItems:
         # Verify unchecked
         updated_list = client.get_list_by_id(test_list.id)
         updated_item = next((i for i in updated_list.items if i.id == item.id), None)
+        assert updated_item is not None
         assert updated_item.is_checked is False
 
     def test_delete_item(self, client, test_list):
