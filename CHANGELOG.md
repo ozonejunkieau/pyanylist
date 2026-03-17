@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.6] - 2026-03-17
 
-### Added
+### Changed
 
-- Add pre-built wheels for Python 3.14 (musl and glibc Linux, macOS)
+- Switch to PyO3 abi3 stable ABI (cp312-abi3), producing a single wheel compatible with Python 3.12+ including 3.14 and future versions
 
 ## [0.0.5] - 2026-01-21
 
