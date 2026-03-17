@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "pyanylist"
-version = "0.0.5"
+version = "0.0.6"
 description = "Python bindings for AnyList API via anylist_rs"
 readme = "README.md"
 license = {text = "MIT"}
@@ -16,6 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Rust",
 ]
 keywords = ["anylist", "shopping", "groceries", "api", "rust"]
